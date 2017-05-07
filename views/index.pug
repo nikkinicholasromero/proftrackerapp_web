@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  nav.navbar.navbar-default.navbar-fixed-top
+    div.container
+      div.navbar-header
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href='#') Proftracker
+      div#navbar.navbar-collapse.collapse
+        ul.nav.navbar-nav.navbar-right
+          li
+            a(href='/logout') Logout
+
+  div.container
+    div.row.search-row
+      div.col-xs-12
+        div.input-group
+          input.form-control(type=text, placeholder='Search for professor or department...')#search-field
+          span.input-group-btn
+            button.btn.btn-default(type=button).search-button Search
+    each professor in professors
+      div.row.professor-row
+        div.col-md-12
+          div.panel.panel-defaults
+            div.panel-body.professor.professor-info
+              div.row
+                div.col-sm-2
+                  img.profile(src=professor.profile)
+                div.col-sm-10
+                  h2= professor.name
+                  p= professor.department
+                  a.btn.btn-sm.btn-info.view-profile-button Show schedule
+                  div.schedule.table-responsive
+                    table.table.table-striped.table-bordered.table-hover.table-condensed
+                      thead
+                        th Subject
+                        th Room
+                        th Schedule
+                        th Status
+                      tbody
+                        each schedule in professor.schedules
+                          tr
+                            td= schedule.subject
+                            td= schedule.room
+                            td= schedule.day + ' ' + schedule.startTime + ' - ' + schedule.endTime
+                            td
+                              if schedule.status == 'ATTENDING'
+                                a.btn.btn-xs.btn-success Attending
+                              else 
+                                a.btn.btn-xs.btn-danger Not attending

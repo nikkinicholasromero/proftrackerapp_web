@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  div.container-fluid
+    div.row
+      div.panel.panel-default#login-panel
+        div.panel-body
+          form#login-form(action='/login/authenticate', method='post')
+            img#proftracker-logo(src='/img/logo.png')
+            div.alert.alert-danger#login-failed-warning-div(role='alert')
+              p Your credentials did not match
+            div.form-group
+              label(for='type') Login as
+              select.form-control#type(name='type')
+                option#student(value='STUDENT') Student
+                option#professor(value='PROFESSOR') Professor
+            div.form-group
+              label(for='email') Email
+              input.form-control#email(type='text', name='email', placeholder='Email', required=true)
+            div.form-group
+              label(for='password') Password
+              input.form-control#password(type='password', name='password', placeholder='Password', required=true)
+            button.btn.btn-info#login-button(type=submit) Login
